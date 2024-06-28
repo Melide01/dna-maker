@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=320, initial-scale=1">
+    <meta charset="utf-8">
+    <style>
+      body, html {
+        min-width: 100%;
+        min-height: 100%;
+        margin: 0;
+        padding: 0;
+        font: Arial 14px;
+        color: #fff;
+        background-color: #111;
+      }
+      
+      .results{
+        text-align:center;
+      }
+      
+      
+      h1 {
+        border-bottom: solid 1px #fff; padding: 10px;
+      }
+      
+      form {
+        display: flex; width:70%; height: auto; flex-direction: column; margin-left: 50%; transform: translateX(-50%);
+        padding: 10px;
+      }
+      
+      button {
+        background-color: #333; color: #6F2; font-size: 20px; padding: 10px; border-radius: 20px; border: solid 2px #6f2;
+        margin-left: 50%; transform: translateX(-50%); width: 300px; margin-bottom: 100px;
+      }
+    </style>
+    <!--<link rel="stylesheet" href="style.css"/>-->
+    <!--<script defer src="script.js"></script>-->
+    
+    <title>ZetaOmega Infection Calculator</title>
+    
+  </head>
+  <body>
+    <h1>
+      ZetaOmega Infection Calculator
+    </h1>
+    
+    
+    
+    <form>
+      <label for="zeta">Taux actuel de l'infection en % : </label>
+      <input type="range" id="infection-data" name="zeta" min="0" max="100" onchange="updateVisual()">
+      <p class="results" id="zeta-result"></p>
+      
+      <label for="delta">Nombre d'heures depuis l'infection : </label>
+      <input type="number" id="delta-day" name="delta" onchange="updateVisual()" value="1">
+      <p class="results" id="delta-result"></p>
+      
+      
+      
+    </form>
+    <button onclick="calculate()">Calculer</button>
+    
+    
+    <h1 class="results" id="results">
+      ...
+    </h1>
+    <p class="results" id="prompt">
+      
+    </p>
+    
+    
+    <script>
+      
+      
+      
+      
+      
+      const dialogue = [
+"Vous êtes en parfaite santé!",
+        "Vous êtes légèrement infecté, restez confiné et appelez un médecin pour vous organisé un dépistage.",
+        "Vous êtes infecté. Restez confiné, ne vous approchez pas de votre famille. Appelez un médecin pour avoir un traitement adapté.",
+        "Vous êtes fortement infecté. Appelez immédiatement le numéro d'urgence conçu aux infections ZO. Restez loins de la population et attendez.",
+        "Vous êtes entièrement infecté, votre position géographique a été partager aux unités de Police locale, nous conseillons toute personne de s'éloigner de la personne infectée et de se mettre dans un endroit sécurisé."
+]
+      
+      
+      
+      
+     
+      
+      
+      const zeta = document.getElementById("infection-data");
+      const delta = document.getElementById("delta-day");
+      
+      document.addEventListener("DOMContentLoaded", () => {
+        updateVisual()
+      });
+      
+      function updateVisual() {
+        document.getElementById("zeta-result").textContent = zeta.value + "%";
+        document.getElementById("delta-result").textContent = delta.value + " heures"
+      }
+      
+      function calculate() {
+        let result = Math.max((100 - Math.ceil(zeta.value * (delta.value+1) / 7))  , 0 );
+        document.getElementById("results").textContent = "Tu as " + result + "% de chance de vivre encore une nuit."
+        
+        if (result === 100) {
+        document.getElementById("prompt").textContent = dialogue[0];
+      } else if (result <= 40 && result !== 0) {
+        document.getElementById("prompt").textContent = dialogue[3];
+      } else if (result <= 70 && result !== 0) {
+        document.getElementById("prompt").textContent = dialogue[2];
+      } else if (result <= 100 && result !== 0) {
+        document.getElementById("prompt").textContent = dialogue[1];
+      } else {
+        document.getElementById("prompt").textContent = dialogue[4];
+      }
+        
+        
+        if (result === 0) {
+          document.body.style.color = "#f00";
+        } else {
+          document.body.style.color = "#fff";
+        }
+        
+        
+        
+        
+      }
+      
+      
+      // 
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,160 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width:100%;
+  height:100%;
+  /* font-family: "Urbanist", sans-serif; */
+  font-family: "Red Hat Display", sans-serif;
+  background-image: url("assets/discretEditorTile.png"); background-size: auto 50%;
+  color: #fff;
+}
+
+h3 {
+  font-size: 25px; margin: 0;
+}
+
+.closeBtn {
+  display: inline-block; background-color: #00000055; padding: 10px; border-radius: 0 10px;
+  /* transform: translate(-50px, -10px); */
+  position: absolute; right: 0; top: 0;
+  font-size: 20px;
+  transition: padding .2s ease-out;
+}
+.closeBtn:hover {
+  padding: 15px;
+}
+
+#specialUI {
+  content : "";
+  padding: 50px;
+  position: fixed; top: 0; z-index: 999;
+  width: calc(100% - 100px); height: calc(100% - 100px);
+  background-color: #000000ee;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity .2s linear;
+}
+
+
+/*All the specials UI here*/
+#specialUI div {
+  border-radius: 10px; overflow: hidden; position: relative;
+  padding-left: 50px; padding-right: 50px; padding-bottom: 50px; padding-top: 10px;
+  height: calc(100% - 100px);
+  background: linear-gradient(to bottom, #111, #55555511);
+}
+
+#specialUI div h1 {
+  display: inline-block;
+  font-size: 25px;
+  border-bottom: solid 2px #fff;
+}
+
+
+
+
+
+a {
+  cursor: pointer;
+}
+
+#UIInput {
+  position: fixed; width: 100%; background: linear-gradient(to bottom, #555555FF, #000000FF); bottom: 0; padding-bottom: 25px;
+  transform: translateY(100%);
+  transition: transform .4s;
+}
+
+#settings2d {
+  
+  /* background-color: green; */
+  overflow: hidden; height: 0;
+  transition: all .4s;
+  display: flex; flex-direction: column; align-items: center;
+  width: 80%;  padding-left: 10%; padding-right: 10%;
+}
+
+#advancedSettings {
+  border-bottom: solid 2px #fff;
+  /* background-color: green; */ 
+  overflow: hidden; height: 0;
+  transition: all .4s;
+  display: flex; flex-direction: column; align-items: center;
+  width: 80%;  padding-left: 10%; padding-right: 10%;
+}
+
+#settings2d form {
+  border-bottom: solid 2px #fff;
+  display: flex; flex-direction: column;
+  position: inherit;
+  width: 100%;
+}
+
+#advancedSettings form {
+  display: flex; flex-direction: column;
+  position: inherit;
+  width: 70%;
+}
+
+#dna-maker {
+  padding-top: 20px;
+  display: flex; flex-direction: column;
+  width: 80%; 
+  /* background-color: red; */ 
+  padding-left: 10%; padding-right: 10%; padding-bottom: 10px;
+}
+
+#dna-container {
+  width: 80%; height: auto; display: flex; flex-direction: column; margin-top: 0;
+  padding-top: 20px; padding-bottom: 20px;
+  /* background: linear-gradient(to bottom, #ffffff77, transparent); */ 
+  margin-bottom: 50px; padding-left: 10%; padding-right: 10%; 
+}
+
+.wTypeText {
+  margin-left: 90%; background-color: #000; font-weight: bolder; margin-bottom: -10px;
+  font-size: 10px; display: block; text-align: center;
+  transform: translate(10px, -10px);
+}
+
+.dialogue {
+  padding: 10px; margin-bottom: 5px; background-color: #00000077;
+  overflow: hidden; border: solid 1px transparent; border-top: solid 1px #fff;
+  cursor: pointer;
+}
+.dialogue:hover {
+  border: solid 1px #05F;
+}
+
+h2 {
+  margin: 0; font-family: "Cutive Mono", monospace; font-size: 15px;
+}
+p {
+  margin: 0; font-family: "Red Rose", serif; font-size: 25px;
+}
+
+textarea {
+  height: 50px;
+}
+
+button {
+  font-size: 15px;
+}
+
+
+
+.indexDisplay {
+  text-align: center;
+  font-family: "Cutive Mono", monospace;
+  width: fit-content; font-size: 10px; padding: 2px; font-weight: bolder;
+  display: inline-block;
+  background-color: yellow; color: #000;
+}
+
+
+
+
+
+#idTempResults {
+  opacity: 0;
+  transition: opacity .5s;
+}

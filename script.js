@@ -1,12 +1,13 @@
-
-// put your code here...
 var dnaData = []
+
+
+
 var nameList = {
   "male0": "Willy Rogers"
 }
 
 var bgsList = {
-  "background1": "image.png",
+  "background1": "background01.png",
 }
 
 var musicList = {
@@ -30,8 +31,16 @@ const nameSelection = document.getElementById("nameSelection");
 
 
 
-document.addEventListener("DOMContentLoaded", () => {
+
+function updateEverything() {
   loadsCharactersAsOptions();
+  updateAdvancedSettingsTab();
+  updadte2DSettingsTab();
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateEverything();
 });
 
 
@@ -39,18 +48,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Handle creating dialogues !
 function createDialogue() {
-  if (document.getElementById("nameSelection").value === "" || document.getElementById("dialogue-text").value === "")
+  if (document.getElementById("NAMEoption").value === "" || document.getElementById("dialogue-text").value === "")
     return
 
   let tempObj = {};
-  tempObj["name"] = document.getElementById("nameSelection").value;
+  tempObj["name"] = document.getElementById("NAMEoption").value;
   tempObj["dialogue"] = document.getElementById("dialogue-text").value;
   tempObj["world-type"] = document.getElementById("world-type-selection").value;
+
+  if (document.getElementById('MUSoption').value !== "") {
+    tempObj["music"] = document.getElementById('MUSoption').value;
+  }
+  if (document.getElementById('SNDoption').value !== "") {
+    tempObj["sound"] = document.getElementById('SNDoption').value;
+  }
+
+  if (document.getElementById("world-type-selection").value === "2D") {
+    var cposradio = document.getElementsByName('characterpos');
+    
+    for (var i = 0, length = cposradio.length; i<length; i++) {
+      if (cposradio[i].checked) {
+        tempObj['character-pos'] = cposradio[i].value;
+        break;
+      }
+    }
+
+    if (document.getElementById('BGSimgs').value !== "") {
+      tempObj['background'] = document.getElementById('BGSimgs').value;
+    }
+  }
+
   dnaData.push(tempObj);
   updateContainer();
 
   document.getElementById("dialogue-text").value = "";
 }
+
+
 
 function updateContainer() {
   dnaContainer.innerHTML = "";
@@ -71,11 +105,31 @@ function updateContainer() {
       wType.style.backgroundColor = "#c15";
     }
 
+    if (item["music"] !== undefined || item["sound"] !== undefined) {
+      const addonElement = document.createElement('div'); addonElement.classList.add('dnaAddon');
+      if (item['music'] !== undefined) {
+        const musicIcon = document.createElement('i'); musicIcon.classList.add('fa-solid', 'fa-music');
+        addonElement.appendChild(musicIcon);
+      };
+      if (item['sound'] !== undefined) {
+        const soundIcon = document.createElement('i'); soundIcon.classList.add('fa-solid', 'fa-volume-high');
+        addonElement.appendChild(soundIcon);
+      };
 
+      dialogueElement.appendChild(addonElement)
+    }
 
-    dnaContainer.appendChild(indexDisplay);
+    dialogueElement.appendChild(indexDisplay);
+    
     dialogueElement.appendChild(wType);
     dialogueElement.appendChild(dialogueName); dialogueElement.appendChild(dialogueText);
+
+    dialogueElement.addEventListener("click", () => {
+      console.log('Hi')
+      specialUIvisibility('visible', 'editDialogue');
+      updateEverything();
+    })
+
     dnaContainer.appendChild(dialogueElement);
     
 
@@ -99,6 +153,8 @@ function toggleEditorVisible() {
     uiInput.style.transform = "translateY(0%)";
     document.getElementById("hideButton").textContent = "Fermer l'editeur";
   }
+
+  updateEverything()
 }
 
 // Handle special Ui visibility
@@ -128,17 +184,25 @@ function specialUIvisibility(type, layer) {
 function loadsCharactersAsOptions() {
   const listAsObj = Object.keys(nameList);
 
-  document.getElementById("nameSelection").innerHTML = "";
+  const NAMEselect = document.getElementsByName('NAMEoption');
 
-  listAsObj.forEach((name, index) => {
-    console.log(name);
+  NAMEselect.forEach((list, index) => {
+    list.innerHTML = "";
 
-    const nameOptionElement = document.createElement("option");
-    nameOptionElement.textContent = nameList[name]; nameOptionElement.value = nameList[name];
-
-    document.getElementById("nameSelection").appendChild(nameOptionElement);
-  });
+    listAsObj.forEach((name, index) => {
+      console.log(name);
+  
+      const nameOptionElement = document.createElement("option");
+      nameOptionElement.textContent = nameList[name]; nameOptionElement.value = nameList[name];
+  
+      list.appendChild(nameOptionElement);
+    });
+  })
+  
 }
+
+
+
 
 // Handles Input Settingd
 function updateAdvancedSettingsTab() {
@@ -153,41 +217,50 @@ function updateAdvancedSettingsTab() {
   const musicsAsList = Object.keys(musicList);
   const soundsAsList = Object.keys(soundList); 
 
-  document.getElementById('MUSoption').innerHTML = "";
-  document.getElementById('SNDoption').innerHTML = "";
+  // Get all the select elements
+  const allMUSselect = document.getElementsByName("MUSoption");
+  const alSNDselect = document.getElementsByName("SNDoption");
 
-  const emptyMUS = document.createElement('option'); emptyMUS.textContent = ""; emptyMUS.value = ""; document.getElementById('MUSoption').appendChild(emptyMUS);
-  const emptySND = document.createElement('option'); emptySND.textContent = ""; emptySND.value = ""; document.getElementById('SNDoption').appendChild(emptySND);
+  allMUSselect.forEach((list, index) => {
+    list.innerHTML = ""
+    const emptyMUS = document.createElement('option'); emptyMUS.textContent = ""; emptyMUS.value = ""; list.appendChild(emptyMUS);
 
-  musicsAsList.forEach((music, index) => {
-    console.log(music)
-    const musOption = document.createElement('option'); musOption.textContent = music; musOption.value = musicList[music]; 
-    document.getElementById('MUSoption').appendChild(musOption);
-  })
-  soundsAsList.forEach((sound, index) => {
-    console.log(sound)
-    const sndOption = document.createElement('option'); sndOption.textContent = sound; sndOption.value = soundList[sound]; 
-    document.getElementById('SNDoption').appendChild(sndOption);
+    musicsAsList.forEach((music, index) => {
+      const musOption = document.createElement('option'); musOption.textContent = music; musOption.value = musicList[music]; 
+      list.appendChild(musOption);
+    });
+  });
+  alSNDselect.forEach((list, index) => {
+    list.innerHTML = ""
+    const emptySND = document.createElement('option'); emptySND.textContent = ""; emptySND.value = ""; list.appendChild(emptySND);
+
+    soundsAsList.forEach((sound, index) => {
+      const sndOption = document.createElement('option'); sndOption.textContent = sound; sndOption.value = soundList[sound]; 
+      list.appendChild(sndOption);
+    });
   });
 }
 
 function updadte2DSettingsTab() {
   console.log(document.getElementById('world-type-selection').value)
   if (document.getElementById('world-type-selection').value === "2D") {
-    document.getElementById('settings2d').style.height = "100px"
+    document.getElementById('settings2d').style.height = "100px";
   } else {
-    document.getElementById('settings2d').style.height = "0px"
+    document.getElementById('settings2d').style.height = "0px";
   }
 
   const bgsAsList = Object.keys(bgsList);
-  document.getElementById('BGSimgs').innerHTML = "";
-  
-  const emptyBG = document.createElement('option'); emptyBG.textContent = ""; emptyBG.value = ""; document.getElementById('BGSimgs').appendChild(emptyBG);
+  // document.getElementById('BGSimgs').innerHTML = "";
+  const allBGoption = document.getElementsByName('BGSoption');
 
-  bgsAsList.forEach((bg, index) => {
-    console.log(bg)
-    const bgOption = document.createElement('option'); bgOption.textContent = bg; bgOption.value = bgsList[bg];
-    document.getElementById('BGSimgs').appendChild(bgOption);
+  allBGoption.forEach((list, index) => {
+    list.innerHTML = ""
+    const emptyBG = document.createElement('option'); emptyBG.textContent = ""; emptyBG.value = ""; list.appendChild(emptyBG);
+
+    bgsAsList.forEach((bg, index) => {
+      const bgOption = document.createElement('option'); bgOption.textContent = bg; bgOption.value = bgsList[bg];
+      list.appendChild(bgOption);
+    });
   });
 }
 

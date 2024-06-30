@@ -6,7 +6,12 @@ body, html {
   /* font-family: "Urbanist", sans-serif; */
   font-family: "Red Hat Display", sans-serif;
   background-image: url("assets/discretEditorTile.png"); background-size: auto 50%;
+  background-attachment: fixed;
   color: #fff;
+}
+
+i {
+  margin-right: 5px; font-size: 10px;
 }
 
 h3 {
@@ -37,8 +42,8 @@ h3 {
 
 
 /*All the specials UI here*/
-#specialUI div {
-  border-radius: 10px; overflow: hidden; position: relative;
+.sUIdiv {
+  border-radius: 10px; overflow: auto; position: relative;
   padding-left: 50px; padding-right: 50px; padding-bottom: 50px; padding-top: 10px;
   height: calc(100% - 100px);
   background: linear-gradient(to bottom, #111, #55555511);
@@ -65,8 +70,6 @@ a {
 }
 
 #settings2d {
-  
-  /* background-color: green; */
   overflow: hidden; height: 0;
   transition: all .4s;
   display: flex; flex-direction: column; align-items: center;
@@ -75,7 +78,6 @@ a {
 
 #advancedSettings {
   border-bottom: solid 2px #fff;
-  /* background-color: green; */ 
   overflow: hidden; height: 0;
   transition: all .4s;
   display: flex; flex-direction: column; align-items: center;
@@ -116,9 +118,14 @@ a {
   transform: translate(10px, -10px);
 }
 
+.dnaAddon {
+  background-color: #000; transform: translate(10px, -10px); border-radius: 0 0 0 10px;
+  display: flex; justify-content: space-around; position: absolute; bottom: 0; right: 0; margin-right: 20px;
+}
+
 .dialogue {
-  padding: 10px; margin-bottom: 5px; background-color: #00000077;
-  overflow: hidden; border: solid 1px transparent; border-top: solid 1px #fff;
+  padding: 10px; margin-bottom: 5px; background-color: #00000077; position: relative;
+  border: solid 1px transparent; border-top: solid 1px #fff; border-left: solid 1px #fff;
   cursor: pointer;
 }
 .dialogue:hover {
@@ -143,9 +150,10 @@ button {
 
 
 .indexDisplay {
+  position: absolute; left: 0; top: 0; transform: translateX(-100%);
   text-align: center;
   font-family: "Cutive Mono", monospace;
-  width: fit-content; font-size: 10px; padding: 2px; font-weight: bolder;
+  width: fit-content; font-size: 10px; font-weight: bolder; padding: 2px;
   display: inline-block;
   background-color: yellow; color: #000;
 }

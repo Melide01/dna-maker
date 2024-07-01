@@ -1,6 +1,10 @@
-var dnaData = []
+var dnaData = {
+  "pattern01": [],
+  "pattern02": [],
+  "pattern03": [],
+}
 
-
+var currentPattern = "pattern01";
 
 var nameList = {
   "male0": "Willy Rogers"
@@ -36,12 +40,46 @@ function updateEverything() {
   loadsCharactersAsOptions();
   updateAdvancedSettingsTab();
   updadte2DSettingsTab();
+  updatePatternList();
+  updateContainer();
 }
 
 
 document.addEventListener("DOMContentLoaded", () => {
   updateEverything();
 });
+
+
+
+
+// For pattern list
+function updatePatternList() {
+  const patternAsObj = Object.keys(dnaData);
+  document.getElementById('patternList').innerHTML = "";
+  patternAsObj.forEach((name, index) => {
+    const patternElement = document.createElement('a'); patternElement.textContent = name;
+    patternElement.classList.add('patternOption');
+    // Also adds the selected class if its indeed selected
+    if (name === currentPattern) {
+      patternElement.classList.add('selectedPattern');
+    }
+    document.getElementById('patternList').appendChild(patternElement);
+    
+    // For changing patterns
+    patternElement.addEventListener('click', function(event) {
+      currentPattern = this.textContent
+      updateEverything();
+    })
+  });
+
+  const plusButton = document.createElement('a'); plusButton.textContent = "+"; plusButton.classList.add('addPattern');
+  document.getElementById('patternList').appendChild(plusButton);
+  // For creating new patterns
+  plusButton.addEventListener('click', () => {
+    console.log('creating pattern!')
+  })
+}
+
 
 
 
@@ -85,7 +123,7 @@ function createDialogue() {
     }
   }
 
-  dnaData.push(tempObj);
+  dnaData[currentPattern].push(tempObj);
   updateContainer();
 
   // Resets options to prevent redondancy
@@ -96,10 +134,27 @@ function createDialogue() {
 }
 
 
+// Toggle Pattern Editor Visibility
+var isinPatternEditor = true;
+function togglePatternSettings() {
+  isinPatternEditor = !isinPatternEditor;
+
+  // If is pattern editor
+  if (isinPatternEditor) {
+    document.getElementById('chapterEditor').style.width = "0"
+    document.getElementById('chapterContainer').style.left = "-180px"
+  } else {
+    document.getElementById('chapterEditor').style.width = "100%"
+    document.getElementById('chapterContainer').style.left = "0"
+  }
+}
+
+
+
 
 function updateContainer() {
   dnaContainer.innerHTML = "";
-  dnaData.forEach((item, index) => {
+  dnaData[currentPattern].forEach((item, index) => {
     const dialogueElement = document.createElement("div"); dialogueElement.classList.add("dialogue");
     const dialogueName = document.createElement("h2"); dialogueName.textContent = item["name"];
     const dialogueText = document.createElement("p"); dialogueText.textContent = item["dialogue"];
@@ -135,18 +190,16 @@ function updateContainer() {
     dialogueElement.appendChild(wType);
     dialogueElement.appendChild(dialogueName); dialogueElement.appendChild(dialogueText);
 
-    dialogueElement.addEventListener("click", () => {
-      console.log('Hi')
+    dialogueElement.setAttribute('dnaindex', index);
+
+    // Make the dialogue show the dialogue editor when clicked
+    dialogueElement.addEventListener("click", function(event) {
+      console.log(this.getAttribute('dnaindex'));
       specialUIvisibility('visible', 'editDialogue');
       updateEverything();
     })
 
     dnaContainer.appendChild(dialogueElement);
-    
-
-
-
-    console.log(item);
   });
 }
 
@@ -216,8 +269,6 @@ function loadsCharactersAsOptions() {
     list.innerHTML = "";
 
     listAsObj.forEach((name, index) => {
-      console.log(name);
-  
       const nameOptionElement = document.createElement("option");
       nameOptionElement.textContent = nameList[name]; nameOptionElement.value = nameList[name];
   
@@ -232,8 +283,6 @@ function loadsCharactersAsOptions() {
 
 // Handles Input Settingd
 function updateAdvancedSettingsTab() {
-  console.log(document.getElementById('editor-mode').value)
-
   if (document.getElementById('editor-mode').value === "advanced") {
     document.getElementById('advancedSettings').style.height = "90px"
   } else {
@@ -268,7 +317,6 @@ function updateAdvancedSettingsTab() {
 }
 
 function updadte2DSettingsTab() {
-  console.log(document.getElementById('world-type-selection').value)
   if (document.getElementById('world-type-selection').value === "2D") {
     document.getElementById('settings2d').style.height = "115px";
   } else {

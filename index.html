@@ -105,6 +105,31 @@
 
   </div>
 
+  <div id="chapterEditor">
+    
+    <div id="chapterContainer">
+      <i class="fa-solid fa-bars" id="patternSettingsIcon" onclick="togglePatternSettings()"></i>
+      <div style="display: flex; flex-direction: column;">
+        <label>Sauveguarder ce chapitre : </label><button disabled>Sauveguarder</button>
+        <label>Charger un chapitre : </label><input type="file" name="" id="" disabled>
+      </div>
+      <br>
+      <label>Patterns : </label>
+      <div id="patternList" style="display: flex; flex-direction: column; margin-top: 10px; border-top: solid 1px #fff;">
+        <a class="patternOption selectedPattern">Pattern 01</a>
+        <a class="patternOption">Pattern 02</a>
+
+        <a class="addPattern">+</a>
+      </div>
+    </div>
+
+    <div style="width: 100%;" onclick="togglePatternSettings()">
+
+    </div>
+  </div>
+
+
+
 
   <div id="dna-container">
   </div>

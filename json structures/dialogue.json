@@ -1,0 +1,9 @@
+{
+    "name": "...",
+    "dialogue": "...",
+    "world-type": "2D or 3D",
+    "music": "... mp3",
+    "sound": "... ogg",
+    "background": "... png",
+    "character-pos": "left or center or right"
+}

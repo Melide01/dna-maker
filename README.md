@@ -1,4 +1,2 @@
 # zeta-omega
-Rep for zeta-omega related
-
-you can look around in this rep if you want ! 
+DNA is a dialogue system that aims for efficiency in making it and using it. 

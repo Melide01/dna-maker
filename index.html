@@ -24,7 +24,7 @@
 <body>
   <div id="specialUI">
 
-    <div style="display: block;" id="startup" class="sUIdiv" style="background: transparent; background-image: url('assets/splashscreen.png');">
+    <div class="sUIdiv" id="startup" style="display: flex; background-image: url('assets/splashscreen.png');" >
       <a class="closeBtn" onclick="specialUIvisibility('hidden', 'startup')">x</a>
       <div style="background: linear-gradient(to bottom, #111, #222);  width: 90%; height: 40%; padding: 0; padding-top: 20px; padding-left: 5%; padding-right: 5%; position: absolute; bottom: 0; left: 0;">
         <h3>DNA Editor</h3>
@@ -51,24 +51,24 @@
           <option value="2D">2D</option>
         </select>
         <label for="modif-name">Nom :</label><select id="editNAMEoption" name="NAMEoption"></select>
-        <label for="modif-dialogue">Dialogue :</label><textarea style="resize: none;" name="modif-name"></textarea>
+        <label for="modif-dialogue">Dialogue :</label><textarea style="resize: none;" id="edit-dialogue-text" name="modif-name"></textarea>
 
         <div style="display: flex;">
           <div style="overflow: hidden; display: flex; padding: 0; flex-direction: column; background: transparent; width: 50%; margin-top: 20px; transition: width .4s;">
             <label for="MUSoption">Choisir musique :</label>
-            <select name="MUSoption" id="MUSoption"></select>
+            <select name="MUSoption" id="editMUSoption"></select>
             <label for="BGSoption">Choisir fond d'écran :</label>
-            <select name="BGSoption" id="BGSoption"></select>
+            <select name="BGSoption" id="editBGSoption"></select>
             
           </div>
           <div id="em-2D" style="overflow: hidden; display: flex; padding: 0; flex-direction: column; background: transparent; width: 50%; margin-top: 20px; transition: height .4s; height: 100%;">
             <label for="SNDoption">Choisir effet sonore :</label>
-            <select name="SNDoption" id="SNDoption"></select>
+            <select name="SNDoption" id="editSNDoption"></select>
             <label>Position du Personnage (gauche, centre, droite) :</label>
             <div style="width: 100%; text-align: center;">
-              <input id="CposL" type="radio" name="characterpos" value="left">
-              <input id="CposC" type="radio" name="characterpos" value="center" checked>
-              <input id="CposR" type="radio" name="characterpos" value="right">
+              <input type="radio" name="edit-characterpos" value="left">
+              <input type="radio" name="edit-characterpos" value="center" checked>
+              <input type="radio" name="edit-characterpos" value="right">
             </div>
           </div>
         </div>        
@@ -148,12 +148,13 @@
       <form>
         <label for="BGSoption">Choisir fond d'écran :</label>
         <select name="BGSoption" id="BGSoption"></select>
-        <label>Position du Personnage (gauche, centre, droite) :</label>
-        <div style="width: 100%; text-align: center;">
-          <input id="CposL" type="radio" name="characterpos" value="left">
-          <input id="CposC" type="radio" name="characterpos" value="center" checked>
-          <input id="CposR" type="radio" name="characterpos" value="right">
-        </div>
+        <label for="charVisible">Personnage Visible : <input id="charVisible" type="checkbox" name="charVisible" onchange="showCharacterPosInput(this.checked)"></label>
+        <label id="char-pos-label" style="opacity: .5;" for="characterpos">Position du Personnage (gauche, centre, droite) : <div
+            style="width: 100%; text-align: center;">
+            <input id="CposL" type="radio" name="characterpos" value="left" disabled>
+            <input id="CposC" type="radio" name="characterpos" value="center" disabled checked>
+            <input id="CposR" type="radio" name="characterpos" value="right" disabled>
+          </div></label>
       </form>
     </div>
 

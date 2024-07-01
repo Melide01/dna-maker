@@ -48,14 +48,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Handle creating dialogues !
 function createDialogue() {
-  if (document.getElementById("NAMEoption").value === "" || document.getElementById("dialogue-text").value === "")
+  if (document.getElementById("dialogue-text").value === "")
+    // Returns if there are no dialogues
     return
 
   let tempObj = {};
+  // Persistent values : name, dialogue, world type 
   tempObj["name"] = document.getElementById("NAMEoption").value;
   tempObj["dialogue"] = document.getElementById("dialogue-text").value;
   tempObj["world-type"] = document.getElementById("world-type-selection").value;
 
+  // Makes sounds and music if not empty
   if (document.getElementById('MUSoption').value !== "") {
     tempObj["music"] = document.getElementById('MUSoption').value;
   }
@@ -64,24 +67,32 @@ function createDialogue() {
   }
 
   if (document.getElementById("world-type-selection").value === "2D") {
-    var cposradio = document.getElementsByName('characterpos');
-    
-    for (var i = 0, length = cposradio.length; i<length; i++) {
-      if (cposradio[i].checked) {
-        tempObj['character-pos'] = cposradio[i].value;
-        break;
+    // Makes Character Position if input is true
+    if (document.getElementById('charVisible').checked === true) {
+      var cposradio = document.getElementsByName('characterpos');
+
+      for (var i = 0, length = cposradio.length; i<length; i++) {
+        if (cposradio[i].checked) {
+          tempObj['character-pos'] = cposradio[i].value;
+          break;
+        }
       }
     }
-
-    if (document.getElementById('BGSimgs').value !== "") {
-      tempObj['background'] = document.getElementById('BGSimgs').value;
+    
+    // Makes Background if not empty
+    if (document.getElementById('BGSoption').value !== "") {
+      tempObj['background'] = document.getElementById('BGSoption').value;
     }
   }
 
   dnaData.push(tempObj);
   updateContainer();
 
+  // Resets options to prevent redondancy
   document.getElementById("dialogue-text").value = "";
+  document.getElementById('MUSoption').value = "";
+  document.getElementById('SNDoption').value = "";
+  document.getElementById('BGSoption').value = "";
 }
 
 
@@ -175,6 +186,21 @@ function specialUIvisibility(type, layer) {
 
 
 
+function showCharacterPosInput(input) {
+  const charPosInput = document.getElementsByName('characterpos');
+  console.log(input)
+  if(input === true) {
+    charPosInput.forEach((element) => {
+      document.getElementById('char-pos-label').style.opacity = "1";
+      element.disabled = false;
+    })
+  } else {
+    charPosInput.forEach((element) => {
+      document.getElementById('char-pos-label').style.opacity = ".5";
+      element.disabled = true;
+    })
+  }
+}
 
 
 
@@ -244,7 +270,7 @@ function updateAdvancedSettingsTab() {
 function updadte2DSettingsTab() {
   console.log(document.getElementById('world-type-selection').value)
   if (document.getElementById('world-type-selection').value === "2D") {
-    document.getElementById('settings2d').style.height = "100px";
+    document.getElementById('settings2d').style.height = "115px";
   } else {
     document.getElementById('settings2d').style.height = "0px";
   }

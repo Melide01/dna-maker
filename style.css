@@ -69,25 +69,19 @@ a {
   transition: transform .4s;
 }
 
-#settings2d {
+.addonSettings {
+  
   overflow: hidden; height: 0;
-  transition: all .4s;
-  display: flex; flex-direction: column; align-items: center;
-  width: 80%;  padding-left: 10%; padding-right: 10%;
-}
 
-#advancedSettings {
-  border-bottom: solid 2px #fff;
-  overflow: hidden; height: 0;
-  transition: all .4s;
   display: flex; flex-direction: column; align-items: center;
   width: 80%;  padding-left: 10%; padding-right: 10%;
+
+  transition: all .3s;
 }
 
 #settings2d form {
   border-bottom: solid 2px #fff;
   display: flex; flex-direction: column;
-  position: inherit;
   width: 100%;
 }
 
@@ -95,13 +89,19 @@ a {
   display: flex; flex-direction: column;
   position: inherit;
   width: 70%;
-}
+} 
 
-#dna-maker {
+/* #dna-maker {
   padding-top: 20px;
   display: flex; flex-direction: column;
   width: 80%; 
-  /* background-color: red; */ 
+  padding-left: 10%; padding-right: 10%; padding-bottom: 10px;
+} */
+
+.editorMaker {
+  padding-top: 20px;
+  display: flex; flex-direction: column;
+  width: 80%; 
   padding-left: 10%; padding-right: 10%; padding-bottom: 10px;
 }
 
@@ -220,3 +220,13 @@ button {
   background-color: #05a;
 }
 
+
+
+
+.choiceoptionelement {
+  font-size: 15px; justify-content: space-between; padding-left: 10px; padding-right: 10px;
+  margin-bottom: 10px;
+}
+.choiceoptionelement input[type="text"] {
+  margin-right: 2px;
+}

@@ -139,8 +139,30 @@
     <a style="width: 100%; font-size: 20px; text-align: center; background-color: #000; position: inherit; transform: translateY(-100%);"
       id="hideButton" onclick="toggleEditorVisible()">Ouvrir l'editeur</a>
 
-    <form id="dna-maker">
-      <div style="display: flex; background: linear-gradient(to right, transparent, #333); justify-content: end;">
+    <select id="dialogue-type" style="position: absolute; left: 10%; top: 20px;" onchange="console.log(this.value); if (this.value !== 'dialogue') {
+      document.getElementById('dna-maker').style.display = 'none';
+      document.getElementById('settings2d').style.display = 'none';
+
+      if (this.value === 'options') {
+        document.getElementById('option-maker').style.display = 'flex';
+        document.getElementById('redirect-maker').style.display = 'none';
+      } else {
+        document.getElementById('redirect-maker').style.display = 'flex';
+        document.getElementById('option-maker').style.display = 'none';
+      }
+    } else {
+      document.getElementById('dna-maker').style.display = 'flex';
+      document.getElementById('settings2d').style.display = 'flex';
+      document.getElementById('option-maker').style.display = 'none';
+      document.getElementById('redirect-maker').style.display = 'none';
+    };">
+      <option value="dialogue">dialogue</option>
+      <option value="options">options</option>
+      <option value="redirect">redirect</option>
+    </select>
+
+    <form id="dna-maker" class="editorMaker">
+      <div id="essentialsEditContainer" style="display: flex; background: linear-gradient(to right, transparent, #333); justify-content: end;">
         <select id="editor-mode" onchange="updateAdvancedSettingsTab()">
           <option value="simple">simple</option>
           <option value="advanced">advanced</option>
@@ -159,7 +181,7 @@
       <textarea style="resize: none;" id="dialogue-text" name="dialogue"></textarea>
       
 
-      <div id="advancedSettings">
+      <div id="advancedSettings" class="addonSettings">
         <form>
           <label for="MUSoption">Choisir musique :</label>
           <select name="MUSoption" id="MUSoption"></select>
@@ -167,21 +189,54 @@
           <select name="SNDoption" id="SNDoption"></select>
         </form>
       </div>
+
+      <div id="settings2d" class="addonSettings">
+        <form>
+          <label for="BGSoption">Choisir fond d'écran :</label>
+          <select name="BGSoption" id="BGSoption"></select>
+          <label for="charVisible">Personnage Visible : <input id="charVisible" type="checkbox" name="charVisible" onchange="showCharacterPosInput(this.checked)"></label>
+          <label id="char-pos-label" style="opacity: .5;" for="characterpos">Position du Personnage (gauche, centre, droite) : 
+            <div style="width: 100%; text-align: center;">
+              <input id="CposL" type="radio" name="characterpos" value="left" disabled>
+              <input id="CposC" type="radio" name="characterpos" value="center" disabled checked>
+              <input id="CposR" type="radio" name="characterpos" value="right" disabled>
+            </div>
+          </label>
+        </form>
+      </div>
+
     </form>
 
-    <div id="settings2d">
-      <form>
-        <label for="BGSoption">Choisir fond d'écran :</label>
-        <select name="BGSoption" id="BGSoption"></select>
-        <label for="charVisible">Personnage Visible : <input id="charVisible" type="checkbox" name="charVisible" onchange="showCharacterPosInput(this.checked)"></label>
-        <label id="char-pos-label" style="opacity: .5;" for="characterpos">Position du Personnage (gauche, centre, droite) : <div
-            style="width: 100%; text-align: center;">
-            <input id="CposL" type="radio" name="characterpos" value="left" disabled>
-            <input id="CposC" type="radio" name="characterpos" value="center" disabled checked>
-            <input id="CposR" type="radio" name="characterpos" value="right" disabled>
-          </div></label>
-      </form>
-    </div>
+    <form id="option-maker" class="editorMaker" style="display: none;">
+      <div style="display: flex; background: linear-gradient(to right, transparent, #333); justify-content: end;">
+        <label>Positions des choix : </label>
+        <select id="editor-mode" onchange="updateAdvancedSettingsTab()">
+          <option value="gauche">gauche</option>
+          <option value="droite" selected>droite</option>
+        </select>
+      </div>
+
+
+      <div style="display: flex; overflow: auto; max-height: 100px; justify-content: right; flex-direction: column; background-color: #222; padding: 10px;">
+        <label class="choiceoptionelement">choix 1 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
+        <label class="choiceoptionelement">choix 2 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
+        <label class="choiceoptionelement">choix 3 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
+        <label class="choiceoptionelement">choix 4 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
+        <label class="choiceoptionelement">choix 5 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
+        <label class="choiceoptionelement">choix 6 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
+      </div>
+    </form>
+
+    <form id="redirect-maker" class="editorMaker" style="display: none;">
+      <div style="display: flex; background: linear-gradient(to right, transparent, #333); justify-content: end;">
+        <input type="button" value="Ajouter">
+
+        <select id="world-type-selection" onchange="updadte2DSettingsTab()">
+          <option value="3D">3D</option>
+          <option value="2D">2D</option>
+        </select>
+      </div>
+    </form>
 
     <div style="display: flex; justify-content: space-between; margin-left: 50%; transform: translateX(-50%); padding-bottom: 20px;">
       <button onclick="specialUIvisibility('visible', 'addCharacters')">Ajouter un personnage</button>

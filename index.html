@@ -114,10 +114,10 @@
       </div>
       <br>
       <label>Patterns : </label>
-      <div id="patternList" style="display: flex; flex-direction: column; margin-top: 10px; border-top: solid 1px #fff;">
-
+      <div id="patternList" style="min-height: 100px; max-height: calc(100% - 300px); overflow: auto; display: flex; flex-direction: column; margin-top: 10px; border-top: solid 1px #fff;">
         <a class="addPattern">+</a>
       </div>
+      <button style="color: #ddd; background-color: #900; position: absolute; bottom: 50px;" onclick="localStorage.clear(); updateEverything();">Clear data</button>
     </div>
 
     <div style="width: 100%;" onclick="togglePatternSettings()">
@@ -136,7 +136,7 @@
     <a style="width: 100%; font-size: 20px; text-align: center; background-color: #000; position: inherit; transform: translateY(-100%);"
       id="hideButton" onclick="toggleEditorVisible()">Ouvrir l'editeur</a>
 
-    <select id="dialogue-type" style="position: absolute; left: 10%; top: 20px;" onchange="console.log(this.value); if (this.value !== 'dialogue') {
+    <select id="dialogue-type" style="position: absolute; left: 10%; top: 20px;" onchange="if (this.value !== 'dialogue') {
       document.getElementById('dna-maker').style.display = 'none';
       document.getElementById('settings2d').style.display = 'none';
 
@@ -175,7 +175,7 @@
       <select id="NAMEoption" name="NAMEoption">
       </select>
       <label for="dialogue">Dialogue: </label>
-      <textarea style="resize: none;" id="dialogue-text" name="dialogue"></textarea>
+      <textarea rows="3" style="resize: none;" id="dialogue-text" name="dialogue" onkeydown="if(event.key === 'Enter') {this.value = this.value.replace(/\n/g, ''); createDialogue();}"></textarea>
       
 
       <div id="advancedSettings" class="addonSettings">
@@ -240,19 +240,19 @@
         <label>Positions des choix : </label>
         <select onchange="document.getElementById('choiceContainer').style.textAlign = this.value;">
           <option value="left">gauche</option>
-          <option value="center" selected>centre</option>
+          <option value="center">centre</option>
           <option value="right" selected>droite</option>
         </select>
       </div>
 
 
-      <div id="choiceContainer" style="display: flex; overflow: auto; max-height: 100px; text-align: left; flex-direction: column; background: linear-gradient(to top, #333, #222); padding: 10px;">
-        <label class="choiceoptionelement">choix 1 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
-        <label class="choiceoptionelement">choix 2 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
-        <label class="choiceoptionelement">choix 3 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
-        <label class="choiceoptionelement">choix 4 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
-        <label class="choiceoptionelement">choix 5 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
-        <label class="choiceoptionelement">choix 6 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
+      <div id="choiceContainer" style="display: flex; overflow: auto; max-height: 100px; text-align: right; flex-direction: column; background-image: url('assets/splashscreen.png'); padding: 10px;">
+        <label class="choiceoptionelement">choix 1 : <input type="text" placeholder="vide"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
+        <label class="choiceoptionelement">choix 2 : <input type="text" placeholder="vide"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
+        <label class="choiceoptionelement">choix 3 : <input type="text" placeholder="vide"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
+        <label class="choiceoptionelement">choix 4 : <input type="text" placeholder="vide"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
+        <label class="choiceoptionelement">choix 5 : <input type="text" placeholder="vide"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
+        <label class="choiceoptionelement">choix 6 : <input type="text" placeholder="vide"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
       </div>
     </form>
 

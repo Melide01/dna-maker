@@ -226,8 +226,9 @@ button {
 
 
 .choiceoptionelement {
+  color: #aaa;
   font-size: 15px; justify-content: space-between; padding-left: 10px; padding-right: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 10px; background: linear-gradient(to bottom, #000000ff, #00000000);
 }
 .choiceoptionelement input[type="text"] {
   margin-right: 2px;

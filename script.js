@@ -46,7 +46,16 @@ function updateEverything() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  updateEverything();
+  if (localStorage.getItem('dna-data') !== null) {
+    // console.log(localStorage.getItem('dna-data'));
+    console.log(localStorage.getItem('dna-data'));
+    loadData(JSON.parse(localStorage.getItem('dna-data')));
+    specialUIvisibility('hidden', 'startup');
+    updateEverything();
+  }
+
+
+  // updateEverything();
 });
 
 
@@ -86,9 +95,7 @@ function updatePatternList() {
 
 // Handle creating dialogues !
 function createDialogue() {
-  if (document.getElementById("dialogue-text").value === "")
-    // Returns if there are no dialogues
-    return
+  if (document.getElementById("dialogue-text").value === "" || document.getElementById('dialogue-type').value !== "dialogue") {return};
 
   let tempObj = {};
   // Persistent values : name, dialogue, world type 
@@ -278,9 +285,8 @@ function loadsCharactersAsOptions() {
 }
 
 
-var advSettHeight = 150;
 
-
+var advSettHeight = 140;
 
 // Handles Input Settingd
 function updateAdvancedSettingsTab() {
@@ -390,6 +396,8 @@ function exportFile(data) {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+
+  localStorage.setItem('dna-data', JSON.stringify(data));
 }
 
 function loadFile(ev) {
@@ -399,10 +407,7 @@ function loadFile(ev) {
     reader.onload = function(e) {
       try {
         console.log(JSON.parse(e.target.result))
-        dnaData = JSON.parse(e.target.result)['dnaData'];
-        musicList = JSON.parse(e.target.result)['musicList'];
-        soundList = JSON.parse(e.target.result)['soundList'];
-        nameList = JSON.parse(e.target.result)['nameList'];
+        loadData(JSON.parse(e.target.result));
         specialUIvisibility('hidden', 'startup');
         updateEverything();
       } catch {
@@ -411,7 +416,13 @@ function loadFile(ev) {
     };
     reader.readAsText(file);
   }
-  
+}
+
+function loadData(data) {
+  dnaData = data['dnaData'];
+  musicList = data['musicList'];
+  soundList = data['soundList'];
+  nameList = data['nameList'];
 }
 
 

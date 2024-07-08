@@ -215,11 +215,7 @@ button {
 }
 .patternOption:hover {
   color: #eee;
-  background-color: #005a;
-}
-.patternOption:active {
-  color: #fff;
-  background-color: #000;
+  border: solid 1px #999;
 }
 .selectedPattern {
   color: #fff;

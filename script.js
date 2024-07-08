@@ -144,8 +144,9 @@ function togglePatternSettings() {
     document.getElementById('chapterEditor').style.width = "0"
     document.getElementById('chapterContainer').style.left = "-180px"
   } else {
-    document.getElementById('chapterEditor').style.width = "100%"
-    document.getElementById('chapterContainer').style.left = "0"
+    document.getElementById('chapterEditor').style.width = "100%";
+    document.getElementById('chapterContainer').style.left = "0";
+    updatePatternList();
   }
 }
 
@@ -194,9 +195,9 @@ function updateContainer() {
 
     // Make the dialogue show the dialogue editor when clicked
     dialogueElement.addEventListener("click", function(event) {
-      console.log(this.getAttribute('dnaindex'));
-      specialUIvisibility('visible', 'editDialogue');
       updateEverything();
+      excluUpdateEditor(this.getAttribute('dnaindex'))
+      specialUIvisibility('visible', 'editDialogue');
     })
 
     dnaContainer.appendChild(dialogueElement);
@@ -262,7 +263,6 @@ function showCharacterPosInput(input) {
 
 function loadsCharactersAsOptions() {
   const listAsObj = Object.keys(nameList);
-
   const NAMEselect = document.getElementsByName('NAMEoption');
 
   NAMEselect.forEach((list, index) => {
@@ -271,7 +271,6 @@ function loadsCharactersAsOptions() {
     listAsObj.forEach((name, index) => {
       const nameOptionElement = document.createElement("option");
       nameOptionElement.textContent = nameList[name]; nameOptionElement.value = nameList[name];
-  
       list.appendChild(nameOptionElement);
     });
   })
@@ -360,13 +359,70 @@ function updateCreateCharacter() {
 }
 
 function addCharacter() {
-  
-
-
   nameList[document.getElementById('add-c-input-id').value.toLowerCase().replace(/ /g, "_")] = document.getElementById('add-c-input-name').value;
   loadsCharactersAsOptions();
   document.getElementById('add-c-input-name').value = "";
   document.getElementById('add-c-input-id').value = "";
   updateCreateCharacter();
   specialUIvisibility("hidden", "addCharacters");
+}
+
+
+// Handle File manipulation
+function exportFile(data) {
+  if (data === undefined) {
+    data = {
+      "dnaData": dnaData,
+      "musicList": musicList,
+      "soundList": soundList,
+      "nameList": nameList
+    }
+  };
+
+  const jsonString = JSON.stringify(data);
+  const blob = new Blob([jsonString], {type: "application/json"});
+
+  const link = document.createElement('a');
+
+  link.href = URL.createObjectURL(blob);
+  link.download = "tempName.json";
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+function loadFile(ev) {
+  const file = ev.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        console.log(JSON.parse(e.target.result))
+        dnaData = JSON.parse(e.target.result)['dnaData'];
+        musicList = JSON.parse(e.target.result)['musicList'];
+        soundList = JSON.parse(e.target.result)['soundList'];
+        nameList = JSON.parse(e.target.result)['nameList'];
+        specialUIvisibility('hidden', 'startup');
+        updateEverything();
+      } catch {
+        console.error('Error parsing')
+      }
+    };
+    reader.readAsText(file);
+  }
+  
+}
+
+
+
+
+// To Keep Updating !!
+function excluUpdateEditor(index) {
+  const data = dnaData[currentPattern][index];
+  console.log(data);
+  document.getElementById('edit-world-type-selection').value = data['world-type'];
+  document.getElementById('editNAMEoption').value = data['name'];
+  document.getElementById('edit-dialogue-text').value = data['dialogue'];
+  console.log(data['name'])
 }

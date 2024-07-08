@@ -29,17 +29,16 @@
       <div style="background: linear-gradient(to bottom, #111, #222);  width: 90%; height: 40%; padding: 0; padding-top: 20px; padding-left: 5%; padding-right: 5%; position: absolute; bottom: 0; left: 0;">
         <h3>DNA Editor</h3>
         <p style="font-size: 15px; margin: 0;">Un éditeur de dialogue développé par Melide.</p>
+        <br><label for="loadData">Charger un chapitre : <input type="file" name="loadData" accept=".json" onchange="loadFile(event)"><br></label>
+        
         <p style="font-style: italic; color: #888; font-size: 15px; margin-top: 15px;">Les fonctionnalités en dessous sont en cours de développement, cliquez sur la croix en haut à droite pour commencer.</p>
         <div style="opacity: .5;   width: 100%; height: 20%; background: transparent;">
-          <label for="loadData">Charger un chapitre :</label>
-          <input type="file" name="loadData" disabled><br>
+          
           <label for="createData">Créer un nouveau chapitre :</label>
           <button disabled>Créer un nouveau fichier</button>
         </div>
       </div>
     </div>
-
-
 
     <div style="display: none;" id="editDialogue" class="sUIdiv">
       <a class="closeBtn" onclick="specialUIvisibility('hidden', 'editDialogue')">x</a>
@@ -106,18 +105,16 @@
   </div>
 
   <div id="chapterEditor">
-    
+
     <div id="chapterContainer">
       <i class="fa-solid fa-bars" id="patternSettingsIcon" onclick="togglePatternSettings()"></i>
       <div style="display: flex; flex-direction: column;">
-        <label>Sauveguarder ce chapitre : </label><button disabled>Sauveguarder</button>
-        <label>Charger un chapitre : </label><input type="file" name="" id="" disabled>
+        <label>Sauveguarder ce chapitre : </label><button onclick="exportFile()">Sauveguarder</button>
+        <label>Charger un chapitre : </label><input type="file" name="" id="" accept=".json" onchange="loadFile(event)">
       </div>
       <br>
       <label>Patterns : </label>
       <div id="patternList" style="display: flex; flex-direction: column; margin-top: 10px; border-top: solid 1px #fff;">
-        <a class="patternOption selectedPattern">Pattern 01</a>
-        <a class="patternOption">Pattern 02</a>
 
         <a class="addPattern">+</a>
       </div>

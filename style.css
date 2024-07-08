@@ -210,7 +210,7 @@ button {
   background-color: #080;
 }
 .patternOption {
-  border: solid 1px #555; text-align: center;
+  border: solid 1px #555; text-align: center; position: relative;
   margin-top: 5px; padding: 5px;
 }
 .patternOption:hover {
@@ -222,7 +222,17 @@ button {
   background-color: #05a;
 }
 
-
+.deletePattern {
+  color: #fff;
+  position: absolute; right: 0; top: 0; padding-left: 10px; padding-right: 10px;
+  background-color: transparent; height: 100%;
+  opacity: .2;
+  transition: all .2s;
+}
+.deletePattern:hover {
+  background-color: #500;
+  opacity: 1;
+}
 
 
 .choiceoptionelement {

@@ -68,6 +68,13 @@ function updatePatternList() {
   patternAsObj.forEach((name, index) => {
     const patternElement = document.createElement('a'); patternElement.textContent = name;
     patternElement.classList.add('patternOption');
+
+    const deletePattern = document.createElement('button'); deletePattern.textContent = 'x';
+    deletePattern.classList.add('deletePattern');
+
+    patternElement.appendChild(deletePattern);
+
+    
     // Also adds the selected class if its indeed selected
     if (name === currentPattern) {
       patternElement.classList.add('selectedPattern');
@@ -76,7 +83,12 @@ function updatePatternList() {
     
     // For changing patterns
     patternElement.addEventListener('click', function(event) {
-      currentPattern = this.textContent
+      // can delete
+      if (event.target !== event.currentTarget) {
+        console.log(this.firstChild.textContent); return;
+      }
+
+      currentPattern = this.firstChild.textContent
       updateEverything();
     })
   });
@@ -162,6 +174,7 @@ function togglePatternSettings() {
 
 function updateContainer() {
   dnaContainer.innerHTML = "";
+  console.log(currentPattern)
   dnaData[currentPattern].forEach((item, index) => {
     const dialogueElement = document.createElement("div"); dialogueElement.classList.add("dialogue");
     const dialogueName = document.createElement("h2"); dialogueName.textContent = item["name"];
@@ -281,7 +294,6 @@ function loadsCharactersAsOptions() {
       list.appendChild(nameOptionElement);
     });
   })
-  
 }
 
 
@@ -423,6 +435,13 @@ function loadData(data) {
   musicList = data['musicList'];
   soundList = data['soundList'];
   nameList = data['nameList'];
+
+  localStorage.setItem('dna-data', JSON.stringify({
+    "dnaData": dnaData,
+    "musicList": musicList,
+    "soundList": soundList,
+    "nameList": nameList
+  }));
 }
 
 

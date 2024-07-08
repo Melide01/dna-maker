@@ -185,8 +185,39 @@
         <form>
           <label for="MUSoption">Choisir musique :</label>
           <select name="MUSoption" id="MUSoption"></select>
+
+          <details id="musicAddon" style="margin-bottom: 10px;">
+            <summary onclick="if(event.target !== event.currentTarget) {return;}; if (document.getElementById('musicAddon').open) {advSettHeight -= 50} else {advSettHeight += 50}; updateAdvancedSettingsTab();">more...</summary>
+            <div>
+              <label>Lowpass :<input type="range" min="0" max="20500"></label>
+              <label>Highpass :<input type="range" min="0" max="20500"></label>
+            </div>
+          </details>
+
+
+          
+          
+
           <label for="SNDoption">Choisir effet sonore :</label>
           <select name="SNDoption" id="SNDoption"></select>
+
+          <details id="soundAddon">
+            <summary onclick="if(event.target !== event.currentTarget) {return;};  if (document.getElementById('soundAddon').open) {advSettHeight -= 80} else {advSettHeight += 80}; updateAdvancedSettingsTab();">more...</summary>
+            <div>
+              <label>Reverb :<input type="range" min="0" max="1"></label>
+              <label>Filter :<input type="range" min="0" max="20500"></label>
+            </div>
+            <div>
+              <label>Widen :<input type="range" min="0" max="4"></label>
+              <label>Stereo Delay :<input type="range" min="0" max="50"></label>
+            </div>
+          </details>
+
+          
+
+          
+
+
         </form>
       </div>
 
@@ -210,14 +241,15 @@
     <form id="option-maker" class="editorMaker" style="display: none;">
       <div style="display: flex; background: linear-gradient(to right, transparent, #333); justify-content: end;">
         <label>Positions des choix : </label>
-        <select id="editor-mode" onchange="updateAdvancedSettingsTab()">
-          <option value="gauche">gauche</option>
-          <option value="droite" selected>droite</option>
+        <select onchange="document.getElementById('choiceContainer').style.textAlign = this.value;">
+          <option value="left">gauche</option>
+          <option value="center" selected>centre</option>
+          <option value="right" selected>droite</option>
         </select>
       </div>
 
 
-      <div style="display: flex; overflow: auto; max-height: 100px; justify-content: right; flex-direction: column; background-color: #222; padding: 10px;">
+      <div id="choiceContainer" style="display: flex; overflow: auto; max-height: 100px; text-align: left; flex-direction: column; background: linear-gradient(to top, #333, #222); padding: 10px;">
         <label class="choiceoptionelement">choix 1 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
         <label class="choiceoptionelement">choix 2 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>
         <label class="choiceoptionelement">choix 3 : <input type="text"><select><option>pattern</option><option>pattern</option><option>pattern</option></select></label>

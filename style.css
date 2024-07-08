@@ -5,7 +5,8 @@ body, html {
   height:100%;
   /* font-family: "Urbanist", sans-serif; */
   font-family: "Red Hat Display", sans-serif;
-  background-image: url("assets/discretEditorTile.png"); background-size: auto 50%;
+  background-color: #222;
+  /* background-image: url("assets/discretEditorTile.png");  background-size: auto 50%; */
   background-attachment: fixed;
   color: #fff;
 }
@@ -90,6 +91,11 @@ a {
   position: inherit;
   width: 70%;
 } 
+
+#advancedSettings label {
+  display: flex; width: 100%;
+  justify-content: center; align-items: center;
+}
 
 /* #dna-maker {
   padding-top: 20px;

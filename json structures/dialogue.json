@@ -2,8 +2,20 @@
     "name": "...",
     "dialogue": "...",
     "world-type": "2D or 3D",
-    "music": "... mp3",
-    "sound": "... ogg",
+    "music": {
+        "path": "... mp3",
+        "lowpass": "",
+        "highpass": ""
+    },
+    "sound": {
+        "path": "... ogg",
+        "reverb": "",
+        "filter": "",
+        "stereo": {
+            "wide": "",
+            "delay": ""
+        }
+    },
     "background": "... png",
     "character-pos": "left or center or right"
 }

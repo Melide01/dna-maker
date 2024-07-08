@@ -279,14 +279,16 @@ function loadsCharactersAsOptions() {
 }
 
 
+var advSettHeight = 150;
+
 
 
 // Handles Input Settingd
 function updateAdvancedSettingsTab() {
   if (document.getElementById('editor-mode').value === "advanced") {
-    document.getElementById('advancedSettings').style.height = "90px"
+    document.getElementById('advancedSettings').style.height = advSettHeight + "px";
   } else {
-    document.getElementById('advancedSettings').style.height = "0"
+    document.getElementById('advancedSettings').style.height = "0";
   }
 
   const musicsAsList = Object.keys(musicList);
